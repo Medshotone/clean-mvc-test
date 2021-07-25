@@ -26,10 +26,10 @@
                     <li class="nav-item<?= $currentPage == 'home' ? ' active' : '' ?>">
                         <a class="nav-link" href="/">Home</a>
                     </li>
-                    <li class="nav-item<?= $currentPage == 'films' ? ' active' : '' ?>">
+                    <li class="nav-item<?= $currentPage == 'film/films' ? ' active' : '' ?>">
                         <a class="nav-link" href="/films">Films</a>
                     </li>
-                    <li class="nav-item<?= $currentPage == 'film.create' ? ' active' : '' ?>">
+                    <li class="nav-item<?= $currentPage == 'film/create' ? ' active' : '' ?>">
                         <a class="nav-link" href="/film/create">Create Films</a>
                     </li>
                     <li class="nav-item<?= $currentPage == 'import' ? ' active' : '' ?>">
