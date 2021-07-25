@@ -26,31 +26,41 @@ header {
     overflow: scroll;
 }
 
-.postImg {
+.filmImg {
     max-width: 100px;
 }
 
-.post {
+.film {
     position: relative;
 }
 
-.post_img {
+.film_img {
     width: inherit;
 }
 
-.post_img img {
+.film_img img {
     max-width: 100%;
 }
 
-.post_title {
+.film_title {
     text-align: center;
 }
 
-.post_date {
-    text-align: right;
+.film_date {
+    text-align: left;
+    margin-bottom: 1rem;
 }
 
 .back_btn {
     position: absolute;
     left: -30px;
+}
+
+form .error {
+    color: red;
+}
+
+.success-message {
+    font-size: 1.5rem;
+    color: green;
 }

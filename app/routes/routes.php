@@ -27,11 +27,11 @@ return [
         'controller' => 'FilmController',
         'action' => 'create'
     ],
-    '/film/update/(\d+)' => [
+    '/film/store' => [
         'controller' => 'FilmController',
-        'action' => 'update'
+        'action' => 'store'
     ],
-    '/film/delete/(\d+)' => [
+    '/film/destroy/(\d+)' => [
         'controller' => 'FilmController',
         'action' => 'delete'
     ],

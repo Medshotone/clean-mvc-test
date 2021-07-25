@@ -32,8 +32,8 @@ class Model
         // getting table columns
         $keys = implode(',', array_keys($data));
         $prepareValues = implode(',', array_map(function ($data) {
-            return ':' . $data;
-        }, array_keys($data)));
+            return '\''. $data .'\'';
+        }, $data));
 
         // making a query
         $query = "INSERT INTO `{$tableName}` ({$keys}) VALUES ({$prepareValues})";
