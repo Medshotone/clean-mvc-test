@@ -6,7 +6,7 @@ class View
 {
     public function showPage($page, array $vars = [])
     {
-        extract($vars, 'array');
+        extract($vars);
 
         $page = 'app/views/' . $page . '.php';
 
