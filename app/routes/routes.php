@@ -1,5 +1,6 @@
 <?php
 
+// main array key is url and supports preg_match patterns
 return [
     // PageController
     '/' => [
