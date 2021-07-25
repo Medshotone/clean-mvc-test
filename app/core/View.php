@@ -12,7 +12,7 @@ class View
 
         ob_start();
         require_once $page;
-        ob_get_clean();
+        $content  = ob_get_clean();
 
         require_once 'app/views/layout.php';
     }
