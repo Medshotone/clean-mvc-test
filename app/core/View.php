@@ -8,6 +8,10 @@ class View
     {
         extract($vars);
 
+        //default variables
+        $currentPage = $page;
+
+        //uploading templates
         $page = 'app/views/' . $page . '.php';
 
         ob_start();
