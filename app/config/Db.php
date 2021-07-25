@@ -8,10 +8,10 @@ use PDOException;
 class Db
 {
     private $configSettings = [
-        'dbname' => 'testdb',
-        'host' => '127.0.0.1',
+        'dbname' => 'clean-mvc-test',
+        'host' => 'localhost',
         'user' => 'admin',
-        'password' => '1',
+        'password' => 'password',
     ];
 
     private $dbConnection;
