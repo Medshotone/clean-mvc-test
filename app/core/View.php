@@ -21,14 +21,20 @@ class View
         require_once 'app/views/layout.php';
     }
 
-    public function returnJson(array $vars = [])
+    public function returnJson(array $vars = [], int $httpCode = 0)
     {
         header('Content-Type: application/json');
+        if ($httpCode) {
+            http_response_code($httpCode);
+        }
+
         echo json_encode($vars);
+        die();
     }
 
-    static function error($errorCode)
+    static function error(int $errorCode)
     {
+        http_response_code($errorCode);
         echo $errorCode;
     }
 
