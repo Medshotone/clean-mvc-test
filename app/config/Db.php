@@ -18,7 +18,7 @@ class Db
 
     public function __construct()
     {
-        $dsn = "mysql:dbname={$this->configSettings['dbname']}host={$this->configSettings['host']}";
+        $dsn = "mysql:dbname={$this->configSettings['dbname']};host={$this->configSettings['host']}";
         $user = $this->configSettings['user'];
         $password = $this->configSettings['password'];
 
