@@ -45,10 +45,10 @@ class Model
         return $statement->execute($data) ? true : false;
     }
 
-    public function all()
+    public function all(string $orderBy = 'id', string $order = 'desc')
     {
         // creating a table name
-        $tableName = $this->makeTableName($orderBy = 'created_at', $order = 'desc');
+        $tableName = $this->makeTableName();
         $query = "SELECT * FROM `$tableName` ORDER BY $orderBy $order";
 
         // prepare query
