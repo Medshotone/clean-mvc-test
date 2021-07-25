@@ -23,16 +23,16 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item active">
+                    <li class="nav-item<?= $currentPage == 'home' ? ' active' : '' ?>">
                         <a class="nav-link" href="/">Home</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item<?= $currentPage == 'films' ? ' active' : '' ?>">
                         <a class="nav-link" href="/films">Films</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item<?= $currentPage == 'film.create' ? ' active' : '' ?>">
                         <a class="nav-link" href="/film/create">Create Films</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item<?= $currentPage == 'import' ? ' active' : '' ?>">
                         <a class="nav-link" href="/import">Import</a>
                     </li>
                 </ul>
