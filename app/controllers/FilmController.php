@@ -39,7 +39,7 @@ class FilmController extends Controller
             unset($_SESSION['successMessage']);
         }
 
-        $films = $this->film->all('title');
+        $films = $this->film->all('title', 'ASC');
 
         $this->view->showPage('film/films', ['films' => $films, 'successMessage' => $successMessage]);
     }
