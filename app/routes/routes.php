@@ -14,6 +14,10 @@ return [
         'controller' => 'ImportController',
         'action' => 'index'
     ],
+    '/import/upload' => [
+        'controller' => 'ImportController',
+        'action' => 'upload'
+    ],
 
     // FilmController
     '/film/(\d+)' => [
