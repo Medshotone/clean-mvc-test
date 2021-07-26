@@ -1,6 +1,7 @@
 <?php
 
 // main array key is url and supports preg_match patterns
+// for get id in function use (\d+)
 return [
     // PageController
     '/' => [
