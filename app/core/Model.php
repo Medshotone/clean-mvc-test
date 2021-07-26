@@ -31,9 +31,9 @@ class Model
 
         // getting table columns
         $keys = implode(',', array_keys($data));
-        $prepareValues = implode(',', array_map(function ($data) {
-            return '\''. $data .'\'';
-        }, $data));
+        $prepareValues = implode(',',array_map(function ($data){
+            return ':'.$data;
+        },array_keys($data)));
 
         // making a query
         $query = "INSERT INTO `{$tableName}` ({$keys}) VALUES ({$prepareValues})";
@@ -69,27 +69,6 @@ class Model
 
         // execute query, and return true or false
         return $result ?? false;
-    }
-
-    public function update(int $id, array $newData)
-    {
-        $tableName = $this->makeTableName();
-
-        $keys = array_keys($newData);
-
-        $columnsString = '';
-        foreach ($keys as $key) {
-            $columnsString .= "$key=:$key,";
-        }
-
-        $columnsString = substr($columnsString, 0, -1); // deleting last ,
-
-        $query = "Update `$tableName` set $columnsString where `id` = $id";
-
-        $stmt = self::$db->prepare($query);
-
-        return $stmt->execute($newData) ? true : false;
-
     }
 
     public function delete(int $id)
