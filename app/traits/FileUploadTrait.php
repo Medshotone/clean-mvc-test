@@ -28,7 +28,6 @@ trait FileUploadTrait
         }
         if ($fileSize > 2097152) {
             $errors[] = 'File size must be under 2mb';
-
         }
 
         if ($errors) {

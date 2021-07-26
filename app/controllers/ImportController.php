@@ -36,8 +36,8 @@ class ImportController extends Controller
 
         $this->view->showPage('import',
             [
-                'errorMessage'        => $errorMessage,
-                'successMessage'      => $successMessage,
+                'errorMessage'   => $errorMessage,
+                'successMessage' => $successMessage,
             ]
         );
     }
@@ -49,7 +49,9 @@ class ImportController extends Controller
 
             if (is_array($result)) {
                 // has upload errors
-                $_SESSION['errorMessage'][] = $result;
+                foreach ($result as $error) {
+                    $_SESSION['errorMessage'][] = $error;
+                }
             } elseif (is_string($result)) {
                 // success upload
 
@@ -78,7 +80,7 @@ class ImportController extends Controller
                         $_SESSION['successMessage'] = 'Films successfully added!!!';
                     }
                 } else {
-                    $_SESSION['errorMessage'][] = 'Not founded available content, check import content';
+                    $_SESSION['errorMessage'][] = 'Not founded available content, check import file';
                 }
             }
         } else {

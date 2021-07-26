@@ -29,9 +29,12 @@
         <div class="col-md-12">
             <div class="card-body">
                 <form id="import-upload" action="/import/upload" method="post" enctype="multipart/form-data">
-                    <input id="image-file" name="file" type="file"/>
-
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="form-group">
+                        <label for="image-file">Choose a text file to import movies</label>
+                        <br>
+                        <input id="image-file" name="file" type="file" accept=".txt">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
                 </form>
             </div>
         </div>
