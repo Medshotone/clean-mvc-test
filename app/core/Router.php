@@ -59,7 +59,7 @@ class Router
 
     public function match()
     {
-        $url = trim($_SERVER['REQUEST_URI']);
+        $url = trim(explode('?', $_SERVER['REQUEST_URI'])[0]);
 
         foreach ($this->routes as $route => $params) {
             if (preg_match($route, $url)) {
