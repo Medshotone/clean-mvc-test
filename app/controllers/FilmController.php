@@ -64,7 +64,7 @@ class FilmController extends Controller
         }
 
         if (!$this->film->create($_POST)) {
-            $this->view->returnJson(['dbInsertFail' => 'Insert in database']);
+            $this->view->returnJson(['dbInsertFail' => 'Insert in database failing']);
         }
 
         $_SESSION['successMessage'] = 'Film successfully added!!!';
