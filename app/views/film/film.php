@@ -1,7 +1,7 @@
 <?php if (isset($film)) { ?>
     <div class="film">
         <div class="back_btn">
-            <a class="btn btn-primary" href="/films">< Back</a>
+            <a class="btn btn-primary" href="/">< Back</a>
         </div>
         <div class="film_title">
             <h1><?= $film['title']; ?></h1>

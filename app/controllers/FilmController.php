@@ -33,15 +33,36 @@ class FilmController extends Controller
     public function showAll()
     {
         $successMessage = '';
-
         if (isset($_SESSION['successMessage']) && $_SESSION['successMessage']) {
             $successMessage = $_SESSION['successMessage'];
             unset($_SESSION['successMessage']);
         }
 
-        $films = $this->film->all('title', 'ASC');
+        $search = '';
+        $searchType = '';
+        if ((isset($_GET['search']) && $search = mb_substr($_GET['search'], 0, 128)) && (isset($_GET['type']) && in_array($_GET['type'], ['title', 'stars']))) {
+            $searchType = $_GET['type'];
 
-        $this->view->showPage('film/films', ['films' => $films, 'successMessage' => $successMessage]);
+            switch ($searchType) {
+                case 'title':
+                    $films = $this->film->where('title', 'LIKE', $search .'%');
+                    break;
+                case 'stars':
+                    $films = $this->film->where('stars', 'LIKE', '%'. $search .'%');
+                    break;
+            }
+        } else {
+            $films = $this->film->all('title', 'ASC');
+        }
+
+        $this->view->showPage('film/films',
+            [
+                'films' => $films,
+                'successMessage' => $successMessage,
+                'searchType' => $searchType,
+                'search' => $search,
+            ]
+        );
     }
 
     public function create()
