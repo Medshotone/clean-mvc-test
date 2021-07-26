@@ -3,9 +3,6 @@
         <div class="back_btn">
             <a class="btn btn-primary" href="/films">< Back</a>
         </div>
-        <div class="film_img">
-            <img src="/public/images/films/<?= $film['title']; ?>" alt="">
-        </div>
         <div class="film_title">
             <h1><?= $film['title']; ?></h1>
         </div>
@@ -16,6 +13,10 @@
         </div>
         <div class="film_description">
             <p><span>Stars: </span><small><?= $film['stars']; ?></small></p>
+        </div>
+        <div class="remove_btn">
+            <a onclick="if (!confirm('Do you really want to delete the movie?')) {return false;}"
+               href="/film/destroy/<?= $film['id']; ?>" class="btn btn-primary remove">Remove</a>
         </div>
     </div>
 <?php } ?>

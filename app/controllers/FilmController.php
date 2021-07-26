@@ -36,6 +36,7 @@ class FilmController extends Controller
     public function showAll()
     {
         $successMessage = '';
+
         if (isset($_SESSION['successMessage']) && $_SESSION['successMessage']) {
             $successMessage = $_SESSION['successMessage'];
             unset($_SESSION['successMessage']);
@@ -70,6 +71,23 @@ class FilmController extends Controller
         $_SESSION['successMessage'] = 'Film successfully added!!!';
 
         $this->view->returnJson(['redirect' => '/films']);
+    }
+
+    public function destroy()
+    {
+        $id = $this->getIdFromUrl();
+
+        $film = $this->film->find($id);
+
+        if ($film) {
+            $_SESSION['successMessage'] = 'Film successfully removed!!!';
+
+            $this->film->delete((int)$film['id']);
+
+            self::redirect('/films');
+        } else {
+            View::error(404);
+        }
     }
 
     protected function sanitizeForm(array &$postData)

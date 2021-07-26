@@ -64,3 +64,12 @@ form .error {
     font-size: 1.5rem;
     color: green;
 }
+
+.remove_btn {
+    text-align: right;
+}
+.remove_btn .btn-primary.remove {
+    text-align: right;
+    background-color: #de3333;
+    border-color: #de3333;
+}

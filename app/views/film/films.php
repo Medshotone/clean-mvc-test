@@ -3,7 +3,7 @@
         <div class="row no-gutters">
             <div class="col-md-12">
                 <div class="card-body">
-                    <p class="card-text success-message">Film successfully added!!!</p>
+                    <p class="card-text success-message"><?= $successMessage; ?></p>
                 </div>
             </div>
         </div>

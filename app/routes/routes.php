@@ -33,6 +33,6 @@ return [
     ],
     '/film/destroy/(\d+)' => [
         'controller' => 'FilmController',
-        'action' => 'delete'
+        'action' => 'destroy'
     ],
 ];
