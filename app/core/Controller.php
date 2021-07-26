@@ -15,11 +15,4 @@ class Controller
     {
         header('Location: ' . $location);
     }
-
-    static public function redirectWithMessage(string $redirectTo, string $message)
-    {
-        $_SESSION['message'] = $message;
-
-        self::redirect($redirectTo);
-    }
 }
