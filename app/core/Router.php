@@ -5,6 +5,7 @@ namespace app\core;
 class Router
 {
     protected $routes = [];
+    protected $route = [];
     protected $params = [];
 
     public function __construct()
@@ -32,9 +33,17 @@ class Router
                 $action = $this->params['action'];
 
                 if (method_exists($path, $action)) {
+
                     $controller = new $path($this->params);
 
-                    $controller->$action();
+                    if (strpos($this->route, '(\d+)') !== false) {
+                        $id = $this->getIdFromUrl($_SERVER['REQUEST_URI']);
+
+                        $controller->$action((int)$id);
+                    } else {
+                        $controller->$action();
+                    }
+
                 } else {
                     View::error(404);
                 }
@@ -56,11 +65,21 @@ class Router
             if (preg_match($route, $url)) {
                 $this->params = $params;
 
+                $this->route = $route;
+
                 return true;
             }
         }
 
         return false;
+    }
 
+    public function getIdFromUrl(string $url)
+    {
+        $exlodedUrl = explode('/', $url);
+
+        $id = end($exlodedUrl);
+
+        return $id;
     }
 }

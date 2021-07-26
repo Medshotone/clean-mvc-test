@@ -5,12 +5,9 @@ namespace app\controllers;
 use app\core\Controller;
 use app\core\View;
 use app\models\Film;
-use app\traits\UrlTrait;
 
 class FilmController extends Controller
 {
-    use UrlTrait;
-
     private $error = [];
     private $film;
 
@@ -20,10 +17,8 @@ class FilmController extends Controller
         $this->film = new Film();
     }
 
-    public function show()
+    public function show(int $id)
     {
-        $id = $this->getIdFromUrl();
-
         $film = $this->film->find($id);
 
         if ($film) {
@@ -73,10 +68,8 @@ class FilmController extends Controller
         $this->view->returnJson(['redirect' => '/films']);
     }
 
-    public function destroy()
+    public function destroy(int $id)
     {
-        $id = $this->getIdFromUrl();
-
         $film = $this->film->find($id);
 
         if ($film) {
