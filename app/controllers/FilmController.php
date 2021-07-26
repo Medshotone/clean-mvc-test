@@ -5,10 +5,12 @@ namespace app\controllers;
 use app\core\Controller;
 use app\core\View;
 use app\models\Film;
+use app\validation\FilmValidationTrait;
 
 class FilmController extends Controller
 {
-    private $error = [];
+    use FilmValidationTrait;
+
     private $film;
 
     public function __construct()
@@ -53,10 +55,8 @@ class FilmController extends Controller
             $this->view->returnJson(['wrongRequestMethod' => 'Wrong request method, must be POST'], 400);
         }
 
-        $this->sanitizeForm($_POST);
-
-        if (!$this->validateForm($_POST)) {
-            $this->view->returnJson(['errors' => $this->error]);
+        if ($errors = $this->validateForm($_POST)) {
+            $this->view->returnJson(['errors' => $errors]);
         }
 
         if (!$this->film->create($_POST)) {
@@ -81,54 +81,5 @@ class FilmController extends Controller
         } else {
             View::error(404);
         }
-    }
-
-    protected function sanitizeForm(array &$postData)
-    {
-        if (isset($postData['title'])) {
-            $postData['title'] = (string)htmlentities($postData['title']);
-        } else {
-            $postData['title'] = '';
-        }
-
-        if (isset($postData['release_year'])) {
-            $postData['release_year'] = (int)$postData['release_year'];
-        } else {
-            $postData['release_year'] = 0;
-        }
-
-        if (isset($postData['format'])) {
-            $postData['format'] = (string)htmlentities($postData['format']);
-        } else {
-            $postData['format'] = '';
-        }
-
-        if (isset($postData['stars'])) {
-            $postData['stars'] = (string)htmlentities($postData['stars']);
-        } else {
-            $postData['stars'] = '';
-        }
-    }
-
-    protected function validateForm(array $postData)
-    {
-        if ((mb_strlen($postData['title']) < 1) || (mb_strlen($postData['title']) > 64)) {
-            $this->error['title'] = 'Title must be between 1 and 64';
-        }
-
-        if ((int)$postData['release_year'] < 1895 || (int)$postData['release_year'] > (int)date('Y')) {
-            $this->error['release_year'] = 'Release year must contain only year, and must be between 1895 and the current';
-        }
-
-        if (!$postData['format'] || !in_array((string)$postData['format'],
-                ['VHS', 'DVD', 'Blu-Ray'])) {
-            $this->error['release_year'] = 'Release year must contain only year, and must be between 1895 and the current';
-        }
-
-        if (mb_strlen($postData['stars']) < 1) {
-            $this->error['stars'] = 'Please indicate name and surname actors';
-        }
-
-        return !$this->error;
     }
 }

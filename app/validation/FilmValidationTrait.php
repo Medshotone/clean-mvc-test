@@ -38,8 +38,10 @@ trait FilmValidationTrait
      * @param array $data
      * @return array
      */
-    public function validateForm(array $data)
+    public function validateForm(array &$data)
     {
+        $this->sanitizeForm($data);
+
         $error = [];
 
         if ((mb_strlen($data['title']) < 1) || (mb_strlen($data['title']) > 64)) {
