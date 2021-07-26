@@ -21,7 +21,7 @@ trait FileUploadTrait
         $fileSize = $fileInfo['size'];
         $fileTmp = $fileInfo['tmp_name'];
 
-        $fileUniqueDir = substr(md5($fileName), 0, 7);
+        $fileUniqueDir = substr(md5($fileName.'ranomsaltdfasdas'), 0, 7);
 
         if (in_array($fileExt, $allowedExt) === false) {
             $errors[] = 'Extension not allowed';
