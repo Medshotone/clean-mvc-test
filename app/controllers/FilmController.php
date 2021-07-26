@@ -65,7 +65,7 @@ class FilmController extends Controller
 
         $_SESSION['successMessage'] = 'Film successfully added!!!';
 
-        $this->view->returnJson(['redirect' => '/films']);
+        $this->view->returnJson(['redirect' => '/']);
     }
 
     public function destroy(int $id)
@@ -77,7 +77,7 @@ class FilmController extends Controller
 
             $this->film->delete((int)$film['id']);
 
-            self::redirect('/films');
+            self::redirect('/');
         } else {
             View::error(404);
         }

@@ -23,11 +23,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item<?= $currentPage == 'home' ? ' active' : '' ?>">
-                        <a class="nav-link" href="/">Home</a>
-                    </li>
                     <li class="nav-item<?= $currentPage == 'film/films' ? ' active' : '' ?>">
-                        <a class="nav-link" href="/films">Films</a>
+                        <a class="nav-link" href="/">Films</a>
                     </li>
                     <li class="nav-item<?= $currentPage == 'film/create' ? ' active' : '' ?>">
                         <a class="nav-link" href="/film/create">Create Films</a>

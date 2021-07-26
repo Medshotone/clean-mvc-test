@@ -10,7 +10,7 @@
     </div>
 <?php } ?>
 
-<?php if (isset($films)) { ?>
+<?php if ($films) { ?>
     <?php foreach ($films as $film) { ?>
         <div class="card mb-3">
             <div class="row no-gutters">
@@ -30,4 +30,18 @@
             </div>
         </div>
     <?php } ?>
+<?php } else { ?>
+    <div class="card mb-3">
+        <div class="row no-gutters">
+            <div class="col-md-12">
+                <div class="card-body">
+                    <p class="card-text">
+                        <a class="card-title" href="/film/create">Create your first film</a>
+                        or
+                        <a class="card-title" href="/import">Import films</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 <?php } ?>
