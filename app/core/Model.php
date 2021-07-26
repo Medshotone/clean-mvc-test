@@ -6,6 +6,7 @@ use app\config\Db;
 
 class Model
 {
+    protected $fillable = [];
     protected static $db;
 
     public function __construct()
@@ -30,6 +31,14 @@ class Model
         $tableName = $this->makeTableName();
 
         // getting table columns
+        if ($this->fillable) {
+            foreach ($data as $key => $value) {
+                if (!in_array($key, $this->fillable)) {
+                    unset($data[$key]);
+                }
+            }
+        }
+
         $keys = implode(',', array_keys($data));
         $prepareValues = implode(',',array_map(function ($data){
             return ':'.$data;
