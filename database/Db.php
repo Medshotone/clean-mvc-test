@@ -1,15 +1,15 @@
 <?php
 
-namespace app\config;
+namespace database;
 
 use PDO;
 
 class Db
 {
-    private $host = "localhost";
-    private $dbName = "clean-mvc-test";
-    private $user = "admin";
-    private $pass = "password";
+    private $host;
+    private $dbName;
+    private $user;
+    private $pass;
     private $charset;
     private $opt;
     private $dsn;
@@ -18,6 +18,10 @@ class Db
 
     private function __construct()
     {
+        $this->host = DB_HOSTNAME;
+        $this->dbName = DB_DATABASE;
+        $this->user = DB_USERNAME;
+        $this->pass = DB_PASSWORD;
         $this->charset = "utf8mb4";
         $this->dsn = "mysql:host={$this->host};dbname={$this->dbName};charset={$this->charset}";
         $this->opt = [
@@ -36,7 +40,7 @@ class Db
 
     public function __wakeup()
     {
-        throw new \Exception("Cannot unserialize a singleton.");
+        throw new \Exception("Cannot unserialize a singleton");
     }
 
     /**

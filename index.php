@@ -1,6 +1,15 @@
 <?php
 
-require_once 'app/lib/Dev.php';
+// require global config file
+if (!is_file('config/config.php')) {
+    throw new \Exception("Undefined config/config.php file. Check example in config/config.example.php and rename to config.php");
+}
+require_once 'config/config.php';
+
+// development settings
+if (DEVELOPMENT_MODE == 1) {
+    require_once 'app/lib/Dev.php';
+}
 
 use app\core\Router;
 
