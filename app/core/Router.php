@@ -15,6 +15,9 @@ class Router
         $this->createRoutesSecurity($routes);
     }
 
+    /**
+     * @param $routes
+     */
     public function createRoutesSecurity($routes)
     {
         foreach ($routes as $route => $params) {
@@ -57,6 +60,9 @@ class Router
         }
     }
 
+    /**
+     * @return bool
+     */
     public function match()
     {
         $url = trim(explode('?', $_SERVER['REQUEST_URI'])[0]);
@@ -74,6 +80,10 @@ class Router
         return false;
     }
 
+    /**
+     * @param string $url
+     * @return mixed
+     */
     public function getIdFromUrl(string $url)
     {
         $exlodedUrl = explode('/', $url);

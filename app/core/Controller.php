@@ -11,6 +11,9 @@ class Controller
         $this->view = new View();
     }
 
+    /**
+     * @param $location
+     */
     static public function redirect($location)
     {
         header('Location: ' . $location);

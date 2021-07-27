@@ -40,15 +40,16 @@ class FilmController extends Controller
 
         $search = '';
         $searchType = '';
-        if ((isset($_GET['search']) && $search = mb_substr($_GET['search'], 0, 128)) && (isset($_GET['type']) && in_array($_GET['type'], ['title', 'stars']))) {
+        if ((isset($_GET['search']) && $search = mb_substr($_GET['search'], 0, 128))
+            && (isset($_GET['type']) && in_array($_GET['type'], ['title', 'stars']))) {
             $searchType = $_GET['type'];
 
             switch ($searchType) {
                 case 'title':
-                    $films = $this->film->where('title', 'LIKE', $search .'%');
+                    $films = $this->film->where('title', 'LIKE', $search . '%');
                     break;
                 case 'stars':
-                    $films = $this->film->where('stars', 'LIKE', '%'. $search .'%');
+                    $films = $this->film->where('stars', 'LIKE', '%' . $search . '%');
                     break;
             }
         } else {
@@ -57,10 +58,10 @@ class FilmController extends Controller
 
         $this->view->showPage('film/films',
             [
-                'films' => $films,
+                'films'          => $films,
                 'successMessage' => $successMessage,
-                'searchType' => $searchType,
-                'search' => $search,
+                'searchType'     => $searchType,
+                'search'         => $search,
             ]
         );
     }

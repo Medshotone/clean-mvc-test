@@ -8,8 +8,8 @@ trait FileUploadTrait
      * @param array $fileInfo
      * @param string $path
      * @return array|string
-     * array contains errors
-     * string contains full img pah
+     * return array contains errors
+     * return string contains full img pah
      */
     private function uploadImage(array $fileInfo, string $path = '/')
     {
@@ -21,7 +21,7 @@ trait FileUploadTrait
         $fileSize = $fileInfo['size'];
         $fileTmp = $fileInfo['tmp_name'];
 
-        $fileUniqueDir = substr(md5($fileName.'ranomsaltdfasdas'), 0, 7);
+        $fileUniqueDir = substr(md5($fileName . 'ranomsaltdfasdas'), 0, 7);
 
         if (in_array($fileExt, $allowedExt) === false) {
             $errors[] = 'Extension not allowed';

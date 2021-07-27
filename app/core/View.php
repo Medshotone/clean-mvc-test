@@ -4,6 +4,10 @@ namespace app\core;
 
 class View
 {
+    /**
+     * @param $page
+     * @param array $vars
+     */
     public function showPage($page, array $vars = [])
     {
         extract($vars);
@@ -16,11 +20,15 @@ class View
 
         ob_start();
         require_once $page;
-        $content  = ob_get_clean();
+        $content = ob_get_clean();
 
         require_once 'app/views/layout.php';
     }
 
+    /**
+     * @param array $vars
+     * @param int $httpCode
+     */
     public function returnJson(array $vars = [], int $httpCode = 0)
     {
         header('Content-Type: application/json');
@@ -32,12 +40,18 @@ class View
         die();
     }
 
+    /**
+     * @param int $errorCode
+     */
     static function error(int $errorCode)
     {
         http_response_code($errorCode);
         echo $errorCode;
     }
 
+    /**
+     * @param string $message
+     */
     static public function message(string $message)
     {
         echo '<script language="javascript">';
