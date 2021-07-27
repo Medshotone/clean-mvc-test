@@ -7,12 +7,12 @@ use app\config\Db;
 class Model
 {
     protected $fillable = [];
-    protected static $db;
+    protected static $dbConnection;
 
     public function __construct()
     {
-        $db = new Db();
-        self::$db = $db->getDbConnection();
+        $db = Db::getInstance();
+        self::$dbConnection = $db->getDbConnection();
     }
 
     /**
@@ -51,7 +51,7 @@ class Model
 
         $query = "INSERT INTO `{$tableName}` ({$keys}) VALUES ({$prepareValues})";
 
-        $statement = self::$db->prepare($query);
+        $statement = self::$dbConnection->prepare($query);
 
         return $statement->execute($data) ? true : false;
     }
@@ -67,7 +67,7 @@ class Model
 
         $query = "SELECT * FROM `$tableName` ORDER BY $orderBy $order";
 
-        $result = self::$db->query($query, \PDO::FETCH_ASSOC)->fetchAll();
+        $result = self::$dbConnection->query($query, \PDO::FETCH_ASSOC)->fetchAll();
 
         return $result ?? false;
     }
@@ -82,7 +82,7 @@ class Model
 
         $query = "SELECT * FROM `{$tableName}` WHERE `id` = ?";
 
-        $statement = self::$db->prepare($query);
+        $statement = self::$dbConnection->prepare($query);
 
         $statement->execute([$id]);
 
@@ -104,7 +104,7 @@ class Model
 
         $query = "SELECT * FROM `{$tableName}` WHERE `{$column}` {$operator} :value";
 
-        $statement = self::$db->prepare($query);
+        $statement = self::$dbConnection->prepare($query);
 
         $statement->execute(['value' => $value]);
 
@@ -123,7 +123,7 @@ class Model
 
         $query = "DELETE FROM {$tableName} WHERE `id` = ?";
 
-        $stmt = self::$db->prepare($query);
+        $stmt = self::$dbConnection->prepare($query);
 
         return $stmt->execute([$id]) ? true : false;
     }

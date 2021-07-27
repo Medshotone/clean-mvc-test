@@ -3,34 +3,60 @@
 namespace app\config;
 
 use PDO;
-use PDOException;
 
 class Db
 {
-    private $configSettings = [
-        'dbname' => 'clean-mvc-test',
-        'host' => 'localhost',
-        'user' => 'admin',
-        'password' => 'password',
-    ];
+    private $host = "localhost";
+    private $dbName = "clean-mvc-test";
+    private $user = "admin";
+    private $pass = "password";
+    private $charset;
+    private $opt;
+    private $dsn;
+    private $connection;
+    private static $database;
 
-    private $dbConnection;
-
-    public function __construct()
+    private function __construct()
     {
-        $dsn = "mysql:dbname={$this->configSettings['dbname']};host={$this->configSettings['host']}";
-        $user = $this->configSettings['user'];
-        $password = $this->configSettings['password'];
+        $this->charset = "utf8mb4";
+        $this->dsn = "mysql:host={$this->host};dbname={$this->dbName};charset={$this->charset}";
+        $this->opt = [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES => false,
+        ];
 
-        try {
-            $this->dbConnection = new PDO($dsn, $user, $password);
-        } catch (PDOException $e) {
-            echo 'Connection failed: ' . $e->getMessage();
-        }
+        $this->connection = new PDO($this->dsn, $this->user, $this->pass, $this->opt);
     }
 
+    public function __clone()
+    {
+        throw new \Exception("Can't clone a singleton");
+    }
+
+    public function __wakeup()
+    {
+        throw new \Exception("Cannot unserialize a singleton.");
+    }
+
+    /**
+     * getInstance
+     *
+     * this method will return instance of the class
+     */
+    public static function getInstance()
+    {
+        if (null == self::$database) {
+            self::$database = new Db();
+        }
+        return self::$database;
+    }
+
+    /**
+     * @return PDO
+     */
     public function getDbConnection()
     {
-        return $this->dbConnection;
+        return $this->connection;
     }
 }
