@@ -8,7 +8,7 @@ require_once 'config/config.php';
 
 // development settings
 if (DEVELOPMENT_MODE == 1) {
-    require_once 'app/lib/Dev.php';
+    require_once 'lib/Dev.php';
 }
 
 use app\core\Router;

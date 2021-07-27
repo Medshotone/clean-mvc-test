@@ -10,7 +10,7 @@ class Router
 
     public function __construct()
     {
-        $routes = require 'app/routes/routes.php';
+        $routes = require 'routes/routes.php';
 
         $this->createRoutesSecurity($routes);
     }
