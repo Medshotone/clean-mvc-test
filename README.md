@@ -1,72 +1,70 @@
-# Хранилище информации о фильмах на чистом php с MVC
+# Information storage about movies on pure php with MVC
 
-## Требования
-php 7.4, mysql 8.0.25 (можно попробовать запустить на mysql 5.6+)
+## Requirements
+php 7.4, mysql 8.0.25 (can be tried to run on mysql 5.6+)
 
-## Инструкция по запуску приложения
+## Application launch instructions
 
-### Для запуска приложения неоходимо:
-1) Создать базу данных и импортировать файлы структуры базы
-2) Заполнить и переименовать файл конфигурации
-3) Запустить веб сервер
+### To launch the application:
+1) Create a database and import database structure files
+2) Fill in and rename the configuration file
+3) Start the web server
 
-### Создать базу данных и импортировать файл структуры базы
-Нужно создать базу данных в mysql и выполнить импорт .sql файлов из папки database/migration по возростанию первого числа
+### Create a database and import the database structure file
+It is necessary to create a database in mysql and import .sql files from the database/migration folder in ascending order of the first number
 
-### Заполнить и переименовать файл конфигурации
-Нужно переименовать файл конфигурации в папке config c config.example.php в config.php
+### Fill in and rename the configuration file
+It is necessary to rename the configuration file in the config folder from config.example.php to config.php
 
-### Запустить веб сервер
-Для разработки можно использовать PHP local server для этого нужно запустить php -S localhost:8080 в корневой папке веб приложения.
-Для использования на подакшене нужно поднять апач сервер, что бы коректно использовать одну точку вхождения.
+### Start the web server
+For development, you can use the PHP local server for this, you need to run php -S localhost:8080 in the root folder of the web application.
 
 
-## Обзор и объяснение архитектуры приложения
+## Overview and explanation of the application architecture
 
-### Разработка
-Для разработки реализован дополнительный функционал который находится в lib/Dev.php который можно подключить в config/config.php
+### Development
+For development, additional functionality is implemented which is located in lib/Dev.php which can be connected in config/config.php
 
-### Конфигурационный файл
-Конфигурационный файл подключается глобально. Дефолтные параметры конфигурации представленны в config/config.example.php
+### Configuration file
+The configuration file is connected globally. The default configuration parameters are presented in config/config.example.php
 
-### Маршрутизация
-Маршрутизация происходит согласно данным файла routes/routes.php где можно настроить доступные урлы а так же на какую 
-функцию котролера они должны вести. Урлы поддерживают патерны preg_match. Есть особый патерн (\d+) который позволяет 
-передавать ид в функцию.
+### Routing
+Routing occurs according to the data of the routes/routes.php file where you can configure the available URLs and which function
+they should lead to the controller. URLs support preg_match patterns. There is a special pattern (\d+) that allows you to transfer
+the id to the function.
 
 ### Core MVC + Router
-В веб приложении используется патерн MVC. Выбор пал на MVC потому что этот патерн популярный и самый знакомый мне.
-Дефолтные классы MVC и класс роботы с роутами находятся в папке app/core.
-В Model реализованы базовые запросы в базу данных для удобства использования.
-В View реализован фунционал который подключает общий layout для всех страниц.
-В Router реализован функционал по роботе с урлами согласно файлу routes/routes.php
+The MVC pattern is used in the web application. The choice fell on MVC because this pattern is popular and most familiar to me.
+The default MVC classes and the class of work with routes are located in the app/core folder.
+Basic database queries are implemented in the Model for convenience.
+In the View, the functionality is implemented that connects the common layout for all pages.
+In the Router, the functionality for working with URLs is implemented according to the routes/routes.php file
 
 ### Extends Controllers
-Наследуемые файлы контролеров находятся в папке app/controllers должны содержать в конце наименования 
-класса и файла слово Controller.
+Inheritable controller files are located in the app/controllers folder and must contain the word Controller at the end of the
+class and file name.
 
 ### Extends Models
-Наследуемые файлы моделей находятся в папке app/models, название класса и файла должны соответствовать таблице в 
-базе данных с которой они работают, без буквы s. То есть для таблицы films должна быть модель Film. В моделе желательно указать
-параметр $fillable, с масивом доступных для записи таблиц.
+Inheritable model files are located in the app/models folder, the class and file name must match the table in the
+database they work with, without the letter s. That is, for the films table, there should be a Film model. It is desirable to specify
+the $fillable parameter in the model, with an array of available tables for writing.
 
-### Views и публичные данные
-Шаблоны страниц находятся в папке app/views. Есть один обязательный шаблон он же общий для всех страниц app/views/layout.php
-Публичные данные, то есть все что можно подгрузить на страницу статикой - находится в папке public.
+### Views and public data
+Page templates are located in the app/views folder. There is one mandatory template that is common to all pages app/views/layout.php
+Public data, that is, everything that can be statically loaded on the page, is located in the public folder.
 
-### Traits как общий фунционал для классов.
-Трейты находятся в папке app/traits, должны содержать в конце файла и класса слово Trait. Используются для создания функционала
-Который может пригодится в разных классах.
+### Traits as common functionality for classes.
+Traits are located in the app/traits folder and must contain the word Trait at the end of the file and class.
+Used to create functionality that may be useful in different classes.
 
-### Валидация входных данных
-Классы с валидацией данных находятся в папке app/validation и должны содержать в конце класса и файла слово Trait. Валидация 
-реалзована через трейты что бы была возможность подключать к нужным классам.
+### Validation of input data
+Classes with data validation are located in the app/validation folder and must contain the word Trait at the end of the class and file.
+Validation is implemented through traits so that it is possible to attach to the necessary classes.
 
-### Подключение к базе данных и миграции
-Класс для подключения к базе данных находится в database/Db.php. Реализован с патерном Singelton что бы использовать везде 
-одно подкючение к базе данных.
-Файлы миграций находятся в database/migration. Миграция выполняется в ручную, импортом файлов в базу.
+### Connecting to the database and migrations
+The class for connecting to the database is located in database/Db.php. Implemented with the Singleton pattern to use everywhere
+one connection to the database.
+Migration files are located in database/migration. Migration is performed manually, by importing files into the database.
 
-### index.php - точка входа приложения
-Файл для точки входя приложения index.php. В нем реализовано подключение глобального конфиг файла, подключение дев. файла, 
-автозагрущик через spl_autoload_register, старт сесии, и ввызов роутера.
+### index.php - entry point of the application
+The file for the entry point of the application is index.php. It includes the global configuration file, the development file, the autoloader using spl_autoload_register, the start of the session, and the call of the router.
